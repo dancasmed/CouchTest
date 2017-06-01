@@ -1,12 +1,17 @@
 Hole01Db = 
 {
-	Init : function(userName, projectName, remoteHost)
+	RemoteHost : null,
+	UserDb : null,
+	ProjectDb : null,
+	UserId : null,
+	ProjectName : null,
+	Init : function(userId, projectName, remoteHost)
 	{
 		
 		Hole01Db.RemoteHost = remoteHost;
 		Hole01Db.UserDb = new PouchDB(userName);
 		Hole01Db.ProjectDb = new PouchDB(projectName);
-		Hole01Db.UserName = userName;
+		Hole01Db.UserId = userId;
 		Hole01Db.ProjectName = projectName;
 
 		console.log('Creating user Db...');
@@ -28,12 +33,7 @@ Hole01Db =
 
 		console.log('Hole01 initiated...');
 		return;
-	},
-	RemoteHost : null,
-	UserDb : null,
-	ProjectDb : null,
-	UserName : null,
-	ProjectName : null,
+	},	
 	UserDbChanged : function(info)
 	{
 		console.log('Change detected at User Db: ' + JSON.stringify(info));
