@@ -9,7 +9,7 @@ Hole01Db =
 	{
 		
 		Hole01Db.RemoteHost = remoteHost;
-		Hole01Db.UserDb = new PouchDB(userName);
+		Hole01Db.UserDb = new PouchDB(projectName + '-' + userName);
 		Hole01Db.ProjectDb = new PouchDB(projectName);
 		Hole01Db.UserId = userId;
 		Hole01Db.ProjectName = projectName;
@@ -95,7 +95,7 @@ Hole01Db =
 		Object.getOwnPropertyNames(obj).forEach(
 			function(item,index)
 			{
-				if(typeof obj[item] != 'function' && typeof obj[item] != 'object')
+				if(typeof obj[item] != 'function' && typeof obj[item] != 'object' && typeof obj[item] != 'undefined')
 					console.log('Indexable property ' + item + ' (' + typeof obj[item] + ')');
 				else
 					console.log('Not indexable property ' + item + ' (' + typeof obj[item] + ')');
