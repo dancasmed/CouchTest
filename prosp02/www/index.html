@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+    <!--
+  * Please see the included README.md file for license terms and conditions.
+  -->
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="media_button_bar/css/media_button_bar.css">
+        <link rel="stylesheet" type="text/css" href="icon-fonts/font-awesome-4.3.0/css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="icon-fonts/elusive-icons-2.0.0/css/elusive-icons.css">
+
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" class="uib-framework-theme">
+        <link href="css\responsive-calendar.css" rel="stylesheet">
+        <link href="css\rating.css" rel="stylesheet">
+        <meta charset="UTF-8">
+        <title>Blank App Designer Cordova Web App Project Template</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+        <!--
+  * The "meta viewport" tag (below) helps your app size appropriately to a device's ideal viewport.
+  * Note that Windows device viewports work better when initialized using the @viewport CSS rule.
+  * For a quick overview of "meta viewport" and @viewport, see this article:
+  *   http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag
+  * To see how it works, try your app on a real device with and without a "meta viewport" tag.
+  * Additional useful references include:
+  *   http://www.quirksmode.org/mobile/viewports.html
+  *   http://www.quirksmode.org/mobile/metaviewport/devices.html
+  *   https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html
+-->
+
+        <!-- <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1"> -->
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1, maximum-scale=2"> -->
+
+        <style>
+            /* following three (cascaded) are equivalent to above three meta viewport statements */
+            /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html */
+            /* see http://dev.w3.org/csswg/css-device-adapt/ */
+                @-ms-viewport { width: 100vw ; min-zoom: 100% ; zoom: 100% ; }          @viewport { width: 100vw ; min-zoom: 100% zoom: 100% ; }
+                @-ms-viewport { user-zoom: fixed ; min-zoom: 100% ; }                   @viewport { user-zoom: fixed ; min-zoom: 100% ; }
+                /*@-ms-viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }   @viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }*/
+        </style>
+
+        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" type="text/css" href="css/index_main.less.css" class="main-less">
+
+        <!-- IMPORTANT: Do not include a weinre script tag as part of your release builds! -->
+        <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work below -->
+        <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
+
+        <!-- Recommended location for your JavaScript libraries -->
+        <!-- These library references (below) are just examples to give you the general idea... -->
+        <!-- <script src="lib/mc/hammer.js"></script> -->
+        <!-- <script src="lib/ft/fastclick.js"></script> -->
+
+        <!--
+  * cordova.js is a phantom lib for "Cordova HTML5 web app," it does nothing in a "Standard HTML5 web app"
+  * Seeing a "Failed to load resource: net::ERR_FILE_NOT_FOUND" message caused by this "cordova.js" script?
+  * The cordova.js script is required if you convert your "Standard HTML5" project into a "Cordova" project.
+  * You can safely ignore the error or comment out this line if you will not be developing a Cordova app.
+-->
+        <script src="cordova.js" id="xdkJScordova_"></script>
+
+        <script src="js/app.js"></script>
+        <!-- for your event code, see README and file comments for details -->
+        <script src="js/init-app.js"></script>
+        <!-- for your init code, see README and file comments for details -->
+        <script src="xdk/init-dev.js"></script>
+        <!-- normalizes device and document ready events, see file for details -->
+        <script type="application/javascript" src="lib/jquery.min.js"></script>
+        <script type="application/javascript" src="marginal/marginal-position.min.js"></script>
+        <script type="application/javascript" src="sidebar/js/hammer.js"></script>
+        <script type="application/javascript" src="sidebar/js/jquery.hammer.js"></script>
+        <script type="application/javascript" src="sidebar/js/swipe-hammer.js"></script>
+        <script type="application/javascript" src="sidebar/js/sidebar.js"></script>
+        <script type="application/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+        <script type="application/javascript" src="js/index_user_scripts.js"></script>
+        <script type="application/javascript" src="xdk/ad/bs_subpage.js"></script>
+
+        <script type="application/javascript" src="js\Hole01\Configuration.js"></script>
+        <script type="application/javascript" src="js\Hole01\JsonDb.js"></script>
+
+        <script type="application/javascript" src="js\Hole01\SessionManager.js"></script>
+        <script type="application/javascript" src="js\Hole01\Sessions\Controllers\SessionController.js"></script>
+        <script type="application/javascript" src="js\Hole01\Sessions\Controllers\dtoRegisterRequest.js"></script>
+        <script type="application/javascript" src="js\Hole01\Sessions\Controllers\dtoLoginRequest.js"></script>
+        <script type="application/javascript" src="js\Hole01\Sessions\Controllers\dtoChangePasswordRequest.js"></script>
+
+        <script type="application/javascript" src="js\Hole01\Business\Models\Sector.js"></script>
+        <script type="application/javascript" src="js\Hole01\Business\Models\SubSector.js"></script>
+        <script type="application/javascript" src="js\Hole01\Business\Models\Branch.js"></script>
+        <script type="application/javascript" src="js\Hole01\Business\Models\SubBranch.js"></script>
+        <script type="application/javascript" src="js\Hole01\Business\Models\Class.js"></script>
+        <script type="application/javascript" src="js\Hole01\Business\Controllers\dtoGetResultsRequest.js"></script>
+        <script type="application/javascript" src="js\Hole01\Business\Controllers\dtoNaicsFilter.js"></script>
+        <script type="application/javascript" src="js\Hole01\Business\Controllers\NaicsController.js"></script>
+        <script type="application/javascript" src="js\Hole01\Business\Handlers\NaicsHandler.js"></script>
+
+        <script type="application/javascript" src="js\Hole01\Places\Models\Country.js"></script>
+        <script type="application/javascript" src="js\Hole01\Places\Models\State.js"></script>
+        <script type="application/javascript" src="js\Hole01\Places\Models\Municipality.js"></script>
+        <script type="application/javascript" src="js\Hole01\Places\Models\Locality.js"></script>
+
+        <script type="application/javascript" src="js\Hole01\Prospeccion\Controllers\ProspectosController.js"></script>
+        <script type="application/javascript" src="js\Hole01\Prospeccion\Handlers\ProspeccionHandler.js"></script>
+        <script type="application/javascript" src="js\Hole01\Prospeccion\Models\DiscardRegistry.js"></script>
+        <script type="application/javascript" src="js\Hole01\Prospeccion\Controllers\dtoDiscardEconomicUnitRequest.js"></script>
+        <script type="application/javascript" src="js\Hole01\Prospeccion\Controllers\dtoDiscardProspectRequest.js"></script>
+        <script type="application/javascript" src="js\Hole01\Prospeccion\Models\dtoProspect.js"></script>
+        <script type="application/javascript" src="js\Hole01\Prospeccion\Models\Prospect.js"></script>
+        <script type="application/javascript" src="js\Hole01\Prospeccion\Models\SellingStep.js"></script>
+
+        <script src="js\Hole01\Sessions\Handlers\SessionHandler.js"></script>
+
+        <script type="application/javascript" src="js\Hole01\UIList.js"></script>
+        <script type="application/javascript" src="js\Hole01\UIManager.js"></script>
+        <script type="application/javascript" src="js\Hole01\Sessions\UIManagers\SessionUIManager.js"></script>
+        <script type="application/javascript" src="js\Hole01\Business\UIManagers\NaicsUIManager.js"></script>
+        <script type="application/javascript" src="js\Hole01\Prospeccion\UIManagers\ProspeccionUIManager.js"></script>
+
+        <script type="application/javascript" src="lib\responsive-calendar.js"></script>
+        <script type="application/javascript" src="justgage/js/raphael.min.js"></script>
+        <script type="application/javascript" src="justgage/js/justgage.min.js"></script>
+        <script type="application/javascript" src="justgage/gauges.js"></script>
+
+        <script type="text/javascript">
+            function EconomicUnitScrolled(o)
+            {
+                //visible height + pixel EconomicUnitScrolled = total height 
+                if(o.offsetHeight + o.scrollTop == o.scrollHeight)
+                {                
+                    NaicsUIManager.SearchEconomicUnits.ResultsPage++;
+                    
+                    hole01_BussinesNaicsHandler.GetEconimicUnitsResults(NaicsUIManager.SearchEconomicUnits.FilterObjsList, NaicsUIManager.SearchEconomicUnits.Query);
+                }
+            }
+            function ProspectsScrolled(o)
+            {console.log('SCROLL');
+                //visible height + pixel EconomicUnitScrolled = total height 
+                if(o.offsetHeight + o.scrollTop == o.scrollHeight)
+                {                
+                    ProspeccionUIManager.SearchProspects.ResultsPage++;
+                    
+                    prosp01_ProspeccionProspeccionHandler.GetProspectsResults(ProspeccionUIManager.SearchProspects.FilterObjsList, ProspeccionUIManager.SearchProspects.Query);
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <!-- IMPORTANT: Do not include a weinre script tag as part of your release builds! -->
+        <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work above -->
+        <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
+        <div class="upage FondoInicio BackgroundRed" id="mainpage">
+            <div class="upage-outer">
+                <div class="upage-content ac0 content-area vertical-col left" id="page_Start">
+                    <div style="height:20%"></div>
+                    <center>
+                        <div class="widget-container content-area vertical-col">
+                            <div class="widget uib_w_1937 scale-image LogoMargins LogoSize StartPageLogoMargins" data-uib="media/img" data-ver="0">
+                                <figure class="figure-align">
+                                    <img src="images/logoNegro.png">
+
+                                    <figcaption data-position="bottom"></figcaption>
+                                </figure>
+                            </div>
+                            <div class="table-thing widget uib_w_1938 d-margins LoginTextFieldWidth LoginFieldsFont StartPageFieldsWidth PageStartFontColorDark" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                <label class="narrow-control"></label>
+                                <div class="inner-addon left-addon">
+                                    <i class="glyphicon glyphicon-user"></i> 
+                                    <input class="wide-control form-control default" type="text" placeholder="Nombre de usuario">
+                                </div>
+                            </div>
+                            <div class="table-thing widget uib_w_1939 d-margins LoginTextFieldWidth LoginFieldsFont StartPageFieldsWidth PageStartFontColorDark" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                <label class="narrow-control label-inline"></label>
+                                <div class="inner-addon left-addon">
+                                    <i class="fa fa-lock fa-lg"></i>
+                                    <input class="wide-control form-control default" type="text" placeholder="Contrasena">
+                                </div>
+                            </div>
+                            <label class="checkbox checkbox-padding-left widget uib_w_1940 d-margins LoginFont LoginKeepSessionMargin PageStartFontColorLigth" data-uib="twitter%20bootstrap/checkbox" data-ver="1">
+                                <input type="checkbox">Mantener sesion iniciada</label>
+                            <button class="btn widget uib_w_1941 d-margins LoginButtonWidth LoginSendButton LoginFont StartPageButtonsWidth SendButtonBackgroundRed PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_PageStart_Send">Enviar</button>
+
+                            <span class="uib_shim"></span>
+                        </div>
+                    </center>
+                    <div id="subButtonsPanel" style="margin-top: 15%;" class="widget-container content-area vertical-col">
+                        <button class="btn widget uib_w_1942 LoginFont  PageStartFontColorLigth btn-link StartPageSecondaryButtonsMargins" data-uib="twitter%20bootstrap/button" data-ver="1">Recordar contrasena</button>
+                        <button class="btn widget uib_w_1943 LoginFont  PageStartFontColorLigth btn-link StartPageSecondaryButtonsMargins" data-uib="twitter%20bootstrap/button" data-ver="1" id="Button_RegisterUser">Registrar Nueva Cuenta</button>
+                        <button class="btn widget uib_w_1944 LoginFont LoginSubButtonsMargins PageStartFontColorLigth btn-link" data-uib="twitter%20bootstrap/button" data-ver="1">Cambiar de Usuario</button>
+                    </div>
+                </div>
+                <div id="uib_page_RegisterUser" class="upage-content vertical-col left hidden">
+                    <div class="grid grid-pad urow uib_row_1 row-height-1" data-uib="layout/row" data-ver="0">
+                        <div class="col uib_col_1 col-0_12-12" data-uib="layout/col" data-ver="0">
+                            <div class="widget-container content-area vertical-col">
+                                <div class="widget uib_w_1945 scale-image d-margins LogoSize StartPageLogoMargins" data-uib="media/img" data-ver="0">
+                                    <figure class="figure-align">
+                                        <img src="images/logoNegro.png">
+
+                                        <figcaption data-position="bottom"></figcaption>
+                                    </figure>
+                                </div>
+                                <center>
+                                    <div class="table-thing widget uib_w_1946 RegisterPageFieldWidth" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                        <label class="narrow-control"></label>
+                                        <input class="wide-control form-control default" type="text" placeholder="Nombre(s)">
+                                    </div>
+                                    <div class="table-thing widget uib_w_1947 d-margins RegisterPageFieldWidth" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                        <label class="narrow-control"></label>
+                                        <input class="wide-control form-control default" type="text" placeholder="Apellido(s)">
+                                    </div>
+                                    <div class="table-thing widget uib_w_1948 d-margins RegisterPageFieldWidth" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                        <label class="narrow-control"></label>
+                                        <input class="wide-control form-control default" type="text" placeholder="Correo electronico">
+                                    </div>
+                                    <div class="table-thing widget uib_w_1949 d-margins RegisterPageFieldWidth" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                        <label class="narrow-control"></label>
+                                        <input class="wide-control form-control default" type="password" placeholder="Password">
+                                    </div>
+                                    <div class="table-thing widget uib_w_1950 d-margins RegisterPageFieldWidth" data-uib="twitter%20bootstrap/input" data-ver="1">
+                                        <label class="narrow-control"></label>
+                                        <input class="wide-control form-control default" type="text" placeholder="Confirmar password">
+                                    </div>
+
+                                    <button class="btn widget uib_w_1951 d-margins LoginSendButton LoginButtonWidth LoginFont btn-default SendButtonBackgroundRed PageStartFontColorLigth" data-uib="twitter%20bootstrap/button" data-ver="1">Registrar</button>
+                                </center>
+                                <div id="subButtonsPanel2" style="margin-top: 5%;" class="widget-container content-area vertical-col">
+                                    <button class="btn widget uib_w_19422 d-margins LoginFont LoginSubButtonsMargins btn-link PageStartFontColorLigth" data-uib="twitter%20bootstrap/button" data-ver="1" id="button_BackStart">Salir del registro</button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <span class="uib_shim"></span>
+                    </div>
+                </div>
+
+                <div id="uib_page_ForgotPassword" class="upage-content vertical-col left hidden"></div>
+            </div>
+
+        </div>
+        <div class="upage hidden HeaderButtonsBackground" id="uib_page_LoggedMain">
+            <div class="upage-outer">
+                <div class="uib-header container-group inner-element uib_w_19423 HeaderBackgroundRed" data-uib="layout/header" data-ver="0">
+                    <h2></h2>
+                    <div class="widget-container wrapping-col single-centered"></div>
+                    <div class="widget-container content-area horiz-area wrapping-col left">
+                        <div class="tarea widget uib_w_19428 d-margins PageStartFontColorDark" data-uib="media/text" data-ver="0" name="uib_w_19428">
+                            <div class="text-container">
+                                <i class="glyphicon glyphicon-user" data-position="icon only"></i>
+                                <label>Mi empresa</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-container content-area horiz-area wrapping-col right">
+                        <div class="btn-group uib-bs-flex widget uib_w_19424 d-margins" data-uib="twitter%20bootstrap/button_group" data-ver="1">
+                            <button class="btn widget uib_w_19425 backgoundHeaderButtons btn-default HeaderButtonsBackground PageStartFontColorLigth HeaderButtonsBorderColor" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="el el-map-marker" data-position="icon only"></i>
+                            </button>
+                            <button class="btn widget uib_w_19426 HeaderButtonsBackground PageStartFontColorLigth HeaderButtonsBorderColor btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_headerFiltros"><i class="fa fa-sliders" data-position="icon only"></i>
+                            </button>
+                            <button class="btn widget uib_w_19427 HeaderButtonsBorderColor HeaderButtonsBackground PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="el el-cog" data-position="icon only"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="upage-content ac0 content-area vertical-col left" id="page_Pendientes">
+                    <div class="text-container">
+                        <i class="fa fa-calendar fa-2x" data-position="icon only"></i>
+                        <label>
+                            <h2>Pendientes</h2>
+                        </label>
+                    </div>
+
+                    <div class="sbs-container widget uib_w_19437 d-margins" data-uib="layout/side_by_side" data-ver="0">
+                        <div class="leftContent widget-container">
+                            <label class="radio radio-padding-left widget uib_w_19438 d-margins" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                <input type="radio" name="ordenDenue" value="etapa" checked="checked">Etapa</label>
+                        </div>
+                        <div class="rightContent widget-container">
+                            <label class="radio radio-padding-left widget uib_w_19439 d-margins" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                <input type="radio" name="ordenDenue" value="fecha">Fecha</label>
+                        </div>
+                    </div>
+                    <div class="panel-group no_wrap widget uib_w_19440 d-margins" data-uib="twitter%20bootstrap/accordion" data-ver="1" id="bs-accordion-1">
+                        <div class="panel widget uib_w_19441 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-4" data-parent="#bs-accordion-1">Recompra</a>                                    
+                                </h4>
+
+                            </div>
+                            <div id="bs-accordion-group-4" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col uib_col_8 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <div style="border-bottom: 1px solid lightgrey;">
+                                                <label>Acuario</label>(Enviar correo)
+                                                <span style="float:right;">
+                                                    <a onclick="console.log('ColapseLink1');"><i class="fa fa-check" data-position="icon only"></i></a>
+                                                    <a onclick="console.log('ColapseLink2');"><i class="fa fa-times" data-position="icon only"></i></a>
+                                                    <a onclick="console.log('ColapseLink3');"><i class="fa fa-ellipsis-h" data-position="icon only"></i></a>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel widget panel-default uib_w_19442" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-5" data-parent="#bs-accordion-1">Seguimiento</a>
+                                </h4>
+                            </div>
+                            <div id="bs-accordion-group-5" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col uib_col_9 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel widget panel-default uib_w_19443" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-6" data-parent="#bs-accordion-1">Cierre</a>
+                                </h4>
+                            </div>
+                            <div id="bs-accordion-group-6" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col uib_col_10 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-container">
+                        <i class="glyphicon glyphicon-briefcase fa-2x" data-position="icon only"></i>
+                        <label>
+                            <h2>Prospectos</h2>
+                        </label>
+                    </div>
+ <div style="width: 200px; height: 100px; overflow-y: scroll;">
+    test<br />
+    test<br />
+    test<br />
+    test<br />
+    test<br />
+    test<br />
+    test<br />
+    test<br />
+    test<br />
+    test<br />
+    </div>
+                    <div class="panel-group no_wrap widget uib_w_19444 d-margins" data-uib="twitter%20bootstrap/accordion" data-ver="1" id="bs-accordion-2">
+                        <div class="panel widget panel-default uib_w_19445" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-7" data-parent="#bs-accordion-2">Collapsible</a>
+                                    <span style="float:right;">
+                                        <a onclick="console.log('ColapseLink');"><i class="el el-cog" data-position="icon only"></i></a>
+                                        <a onclick="console.log('ColapseLink3');"><i class="fa fa-ellipsis-h" data-position="icon only"></i></a>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div id="bs-accordion-group-7" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col uib_col_11 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel widget uib_w_19446 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-8" data-parent="#bs-accordion-2">Collapsible</a>
+                                </h4>
+                            </div>
+                            <div id="bs-accordion-group-8" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col uib_col_12 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel widget panel-default uib_w_19447" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-9" data-parent="#bs-accordion-2">Collapsible</a>
+                                </h4>
+                            </div>
+                            <div id="bs-accordion-group-9" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col uib_col_13 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="uib_page_Filtros" class="upage-content vertical-col left hidden">
+                    <h2><i class="fa fa-sliders" data-position="icon only"></i>Filtros</h2> 
+                    <div class="panel-group no_wrap widget uib_w_19453 d-margins" data-uib="twitter%20bootstrap/accordion" data-ver="1" id="bs-accordion-3">
+                        <div class="panel widget uib_w_19454 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+           <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-3" data-parent="#bs-accordion-3">Estado</a>
+       </h4>
+                            </div>
+                            <div id="bs-accordion-group-3" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col uib_col_17 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel widget uib_w_19455 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+           <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-10" data-parent="#bs-accordion-3">Municipio</a>
+       </h4>
+                            </div>
+                            <div id="bs-accordion-group-10" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col uib_col_18 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel widget uib_w_19456 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+           <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-11" data-parent="#bs-accordion-3">Actividad economica</a>
+       </h4>
+                            </div>
+                            <div id="bs-accordion-group-11" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col uib_col_19 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel widget uib_w_19458 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+           <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-12" data-parent="#bs-accordion-3">Tamano de la empresa</a>
+       </h4>
+                            </div>
+                            <div id="bs-accordion-group-12" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col uib_col_20 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel widget uib_w_19459 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+           <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-13" data-parent="#bs-accordion-3">Proximidad</a>
+       </h4>
+                            </div>
+                            <div id="bs-accordion-group-13" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col uib_col_21 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn widget uib_w_19457 d-margins SendButtonBackgroundRed PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_FiltrosBuscar">Buscar</button>
+                </div>
+                <div class="uib-footer uib-footer-fixed container-group inner-element uib_w_19429 FooterBackgroundRed" data-uib="layout/footer" data-ver="0">
+                    <div class="widget-container wrapping-col single-centered">
+                        <button class="btn widget uib_w_19433 HeaderButtonsBackground HeaderButtonsBorderColor PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_FooterPendientes"><i class="fa fa-calendar" data-position="icon only"></i>
+                        </button>
+                        <button class="btn widget uib_w_19431 HeaderButtonsBackground HeaderButtonsBorderColor PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_FooterProspectos"><i class="glyphicon glyphicon-briefcase" data-position="icon only"></i>
+                        </button>
+                        <button class="btn widget uib_w_19430 HeaderButtonsBackground HeaderButtonsBorderColor PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="fa fa-comment-o" data-position="icon only"></i>
+                        </button>
+                        <button class="btn widget uib_w_19432 HeaderButtonsBackground HeaderButtonsBorderColor PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="glyphicon glyphicon-tag" data-position="icon only"></i>
+                        </button>
+                        <button class="btn widget uib_w_19434 HeaderButtonsBackground HeaderButtonsBorderColor PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="fa fa-history" data-position="icon only"></i>
+                        </button>
+                        <button class="btn widget uib_w_19435 HeaderButtonsBackground HeaderButtonsBorderColor PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="glyphicon glyphicon-filter" data-position="icon only"></i>
+                        </button>
+                        <button class="btn widget uib_w_19436 HeaderButtonsBackground HeaderButtonsBorderColor PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="fa fa-file-text-o" data-position="icon only"></i>
+                        </button>
+                    </div>
+                    <div class="widget-container content-area horiz-area wrapping-col left"></div>
+                    <div class="widget-container content-area horiz-area wrapping-col right"></div>
+                </div>
+
+                <div id="uib_page_DenueResults" class="upage-content vertical-col left hidden">
+                    <h2><i class="fa fa-sliders" data-position="icon only"></i>Filtros</h2>
+                    <br>Ordenar
+                    <div class="sbs-container widget uib_w_19437 d-margins" data-uib="layout/side_by_side" data-ver="0">
+                        <div class="leftContent widget-container">
+                            <label class="radio radio-padding-left widget uib_w_19438 d-margins" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                <input type="radio" name="ordenProspectos" value="alfabeticamente" checked="checked">Alfabeticamente</label>
+                        </div>
+                        <div class="rightContent widget-container">
+                            <label class="radio radio-padding-left widget uib_w_19439 d-margins" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                <input type="radio" name="ordenProspectos" value="distancia">Distancia</label>
+                        </div>
+                    </div>
+                    <strong>0,000 Resultados</strong>
+                    <div class="panel-group no_wrap widget uib_w_19449 d-margins" data-uib="twitter%20bootstrap/accordion" data-ver="1" id="bs-accordion-0">
+                        <div class="panel widget panel-default uib_w_19450" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-0" data-parent="#bs-accordion-0">Collapsible</a>
+                                </h4>
+                            </div>
+                            <div id="bs-accordion-group-0" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col uib_col_14 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel widget panel-default uib_w_19451" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-1" data-parent="#bs-accordion-0">Collapsible</a>
+                                </h4>
+                            </div>
+                            <div id="bs-accordion-group-1" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col uib_col_15 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel widget panel-default uib_w_19452" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-2" data-parent="#bs-accordion-0">Collapsible</a>
+                                </h4>
+                            </div>
+                            <div id="bs-accordion-group-2" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <div class="col uib_col_16 single-col" data-uib="layout/col" data-ver="0">
+                                        <div class="widget-container content-area vertical-col">
+                                            <span class="uib_shim"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="upage vertical-col left hidden BackgroundRed" id="uib_page_FiltrosSplash">
+            <div class="widget uib_w_19448 scale-image StartPageLogoMargins" data-uib="media/img" data-ver="0">
+                <figure class="figure-align">
+                    <img src="images/logoNegro.png">
+                    <figcaption data-position="bottom"></figcaption>
+                </figure>
+            </div>
+            <center>
+                <i class="fa fa-sliders fa-5x" data-position="icon only"></i>
+            </center>
+        </div>
+    </body>
+
+</html>
