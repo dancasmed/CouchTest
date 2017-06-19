@@ -7,19 +7,9 @@
  function init_user_interface()
  {    
      
-     JsonDb.Init();
-     console.log('DB');
+     Hole01Db.Init('demouser', 'prosp01', 'http://127.0.0.1:5984');
      
-     
-     
-     
-     
-     
-     
-     
-     NaicsUIManager.SearchEconomicUnits.Init(); 
-     ProspeccionUIManager.SearchProspects.Init();
-     ProspeccionUIManager.SalesProcesses.Init();
+    
      
      Configuration.Init();
      
@@ -593,8 +583,9 @@ function checkPassStrength(pass, id) {
         $('#btn_EconomicUnits_ClearInputSearch').hide();
         $('#input_EconomicUnits_Search').val('');
         NaicsUIManager.SearchEconomicUnits.Query = '';
-         NaicsUIManager.ClearResults();                                                                         hole01_BussinesNaicsHandler.GetEconimicUnitsResults(NaicsUIManager.SearchEconomicUnits.FilterObjsList, NaicsUIManager.SearchEconomicUnits.Query);
-         return false;
+        NaicsUIManager.ClearResults();
+        hole01_BussinesNaicsHandler.GetEconimicUnitsResults(NaicsUIManager.SearchEconomicUnits.FilterObjsList, NaicsUIManager.SearchEconomicUnits.Query);
+        return false;
     });
     
         /* button  #btn_DiscardEconomicUnit_Discard */
@@ -765,7 +756,7 @@ function checkPassStrength(pass, id) {
     $(document).on("click", "#btn_PageStart_Send", function(evt)
     {
          /*global activate_subpage */
-         activate_subpage("#page_Pendientes"); 
+         
          return false;
     });
     
@@ -776,9 +767,16 @@ function checkPassStrength(pass, id) {
          /*global activate_subpage */
         activate_page("#uib_page_FiltrosSplash");
         setTimeout(function()
-                   {
-                    activate_subpage("#uib_page_Filtros"); console.log('Timer');
-                    },1000);
+        {
+            var hdr = document.getElementById("MainHeader");            
+            hdr.classList.remove("HeaderBackgroundBlue");
+            hdr.classList.add("HeaderBackgroundRed");
+            
+            var ftr = document.getElementById("MainFooter");
+            ftr.classList.remove("FooterBackgroundBlue");
+            ftr.classList.add("FooterBackgroundRed");
+            activate_subpage("#uib_page_Filtros"); console.log('Timer');
+        },1000);
          return false;
     });
     
@@ -786,6 +784,13 @@ function checkPassStrength(pass, id) {
     $(document).on("click", "#btn_FooterPendientes", function(evt)
     {
          /*global activate_subpage */
+         var hdr = document.getElementById("MainHeader");            
+            hdr.classList.remove("HeaderBackgroundBlue");
+            hdr.classList.add("HeaderBackgroundRed");
+            
+            var ftr = document.getElementById("MainFooter");
+            ftr.classList.remove("FooterBackgroundBlue");
+            ftr.classList.add("FooterBackgroundRed");
          activate_subpage("#page_Pendientes"); 
          return false;
     });
@@ -795,6 +800,57 @@ function checkPassStrength(pass, id) {
     {
          /*global activate_subpage */
          activate_subpage("#uib_page_DenueResults"); 
+         return false;
+    });
+    
+        /* button  #btn_DenueResultsNewSearch */
+    $(document).on("click", "#btn_DenueResultsNewSearch", function(evt)
+    {
+         /*global activate_subpage */
+         activate_subpage("#uib_page_Filtros"); 
+         return false;
+    });
+    
+        /* button  #btn_FooterProspectos */
+    
+    
+        /* button  #btn_FooterProspectos */
+    $(document).on("click", "#btn_FooterProspectos", function(evt)
+    {
+         /*global activate_subpage */
+        activate_page("#uib_page_ProspectosSplash");
+        setTimeout(function()
+        {
+            var hdr = document.getElementById("MainHeader");            
+            hdr.classList.remove("HeaderBackgroundRed");
+            hdr.classList.add("HeaderBackgroundBlue");
+            
+            var ftr = document.getElementById("MainFooter");
+            ftr.classList.remove("FooterBackgroundRed");
+            ftr.classList.add("FooterBackgroundBlue");
+            
+            activate_subpage("#uib_page_Prospectos");  console.log('Timer');
+        },1000);
+         return false;
+         
+         return false;
+    });
+    
+        /* button  #btn_PageStart_Send */
+    $(document).on("click", "#btn_PageStart_Send", function(evt)
+    {
+         /* Other options: .modal("show")  .modal("hide")  .modal("toggle")
+         See full API here: http://getbootstrap.com/javascript/#modals 
+            */
+        /*User validation*/
+        
+         Hole01Db.Sync();
+        
+        
+        
+        
+         activate_subpage("#page_Pendientes"); 
+         
          return false;
     });
     

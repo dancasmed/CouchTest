@@ -68,6 +68,8 @@
         <script src="xdk/init-dev.js"></script>
         <!-- normalizes device and document ready events, see file for details -->
         <script type="application/javascript" src="lib/jquery.min.js"></script>
+        <script type="application/javascript" src="lib/pouchdb.min.js"></script>
+        <script type="application/javascript" src="lib/pouchdb.find.js"></script>
         <script type="application/javascript" src="marginal/marginal-position.min.js"></script>
         <script type="application/javascript" src="sidebar/js/hammer.js"></script>
         <script type="application/javascript" src="sidebar/js/jquery.hammer.js"></script>
@@ -78,7 +80,7 @@
         <script type="application/javascript" src="xdk/ad/bs_subpage.js"></script>
 
         <script type="application/javascript" src="js\Hole01\Configuration.js"></script>
-        <script type="application/javascript" src="js\Hole01\JsonDb.js"></script>
+        <script type="application/javascript" src="js\Hole01\Hole01Db.js"></script>
 
         <script type="application/javascript" src="js\Hole01\SessionManager.js"></script>
         <script type="application/javascript" src="js\Hole01\Sessions\Controllers\SessionController.js"></script>
@@ -180,13 +182,13 @@
                             </div>
                             <label class="checkbox checkbox-padding-left widget uib_w_1940 d-margins LoginFont LoginKeepSessionMargin PageStartFontColorLigth" data-uib="twitter%20bootstrap/checkbox" data-ver="1">
                                 <input type="checkbox">Mantener sesion iniciada</label>
-                            <button class="btn widget uib_w_1941 d-margins LoginButtonWidth LoginSendButton LoginFont StartPageButtonsWidth SendButtonBackgroundRed PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_PageStart_Send">Enviar</button>
+                            <button class="btn widget uib_w_1941 d-margins LoginButtonWidth LoginSendButton LoginFont StartPageButtonsWidth SendButtonBackgroundRed WhiteFont btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_PageStart_Send">ENVIAR</button>
 
                             <span class="uib_shim"></span>
                         </div>
                     </center>
                     <div id="subButtonsPanel" style="margin-top: 15%;" class="widget-container content-area vertical-col">
-                        <button class="btn widget uib_w_1942 LoginFont  PageStartFontColorLigth btn-link StartPageSecondaryButtonsMargins" data-uib="twitter%20bootstrap/button" data-ver="1">Recordar contrasena</button>
+                        <button class="btn widget uib_w_1942 LoginFont  PageStartFontColorLigth StartPageSecondaryButtonsMargins btn-link" data-uib="twitter%20bootstrap/button" data-ver="1">Recordar contrasena</button>
                         <button class="btn widget uib_w_1943 LoginFont  PageStartFontColorLigth btn-link StartPageSecondaryButtonsMargins" data-uib="twitter%20bootstrap/button" data-ver="1" id="Button_RegisterUser">Registrar Nueva Cuenta</button>
                         <button class="btn widget uib_w_1944 LoginFont LoginSubButtonsMargins PageStartFontColorLigth btn-link" data-uib="twitter%20bootstrap/button" data-ver="1">Cambiar de Usuario</button>
                     </div>
@@ -224,7 +226,7 @@
                                         <input class="wide-control form-control default" type="text" placeholder="Confirmar password">
                                     </div>
 
-                                    <button class="btn widget uib_w_1951 d-margins LoginSendButton LoginButtonWidth LoginFont btn-default SendButtonBackgroundRed PageStartFontColorLigth" data-uib="twitter%20bootstrap/button" data-ver="1">Registrar</button>
+                                    <button class="btn widget uib_w_1951 d-margins LoginSendButton LoginButtonWidth LoginFont SendButtonBackgroundRed btn-default WhiteFont" data-uib="twitter%20bootstrap/button" data-ver="1">Registrar</button>
                                 </center>
                                 <div id="subButtonsPanel2" style="margin-top: 5%;" class="widget-container content-area vertical-col">
                                     <button class="btn widget uib_w_19422 d-margins LoginFont LoginSubButtonsMargins btn-link PageStartFontColorLigth" data-uib="twitter%20bootstrap/button" data-ver="1" id="button_BackStart">Salir del registro</button>
@@ -239,14 +241,15 @@
                 <div id="uib_page_ForgotPassword" class="upage-content vertical-col left hidden"></div>
             </div>
 
+            
         </div>
         <div class="upage hidden HeaderButtonsBackground" id="uib_page_LoggedMain">
             <div class="upage-outer">
-                <div class="uib-header container-group inner-element uib_w_19423 HeaderBackgroundRed" data-uib="layout/header" data-ver="0">
+                <div class="uib-header container-group inner-element uib_w_19423 HeaderBackgroundRed" data-uib="layout/header" data-ver="0" id="MainHeader">
                     <h2></h2>
                     <div class="widget-container wrapping-col single-centered"></div>
                     <div class="widget-container content-area horiz-area wrapping-col left">
-                        <div class="tarea widget uib_w_19428 d-margins PageStartFontColorDark" data-uib="media/text" data-ver="0" name="uib_w_19428">
+                        <div class="tarea widget uib_w_19428 d-margins WhiteFont" data-uib="media/text" data-ver="0" name="uib_w_19428">
                             <div class="text-container">
                                 <i class="glyphicon glyphicon-user" data-position="icon only"></i>
                                 <label>Mi empresa</label>
@@ -255,178 +258,191 @@
                     </div>
                     <div class="widget-container content-area horiz-area wrapping-col right">
                         <div class="btn-group uib-bs-flex widget uib_w_19424 d-margins" data-uib="twitter%20bootstrap/button_group" data-ver="1">
-                            <button class="btn widget uib_w_19425 backgoundHeaderButtons btn-default HeaderButtonsBackground PageStartFontColorLigth HeaderButtonsBorderColor" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="el el-map-marker" data-position="icon only"></i>
+                            <button class="btn widget uib_w_19425 backgoundHeaderButtons HeaderButtonsBackground HeaderButtonsBorderColor btn-default WhiteFont" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="el el-map-marker" data-position="icon only"></i>
                             </button>
-                            <button class="btn widget uib_w_19426 HeaderButtonsBackground PageStartFontColorLigth HeaderButtonsBorderColor btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_headerFiltros"><i class="fa fa-sliders" data-position="icon only"></i>
+                            <button class="btn widget uib_w_19426 HeaderButtonsBackground HeaderButtonsBorderColor btn-default WhiteFont" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_headerFiltros"><i class="fa fa-sliders" data-position="icon only"></i>
                             </button>
-                            <button class="btn widget uib_w_19427 HeaderButtonsBorderColor HeaderButtonsBackground PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="el el-cog" data-position="icon only"></i>
+                            <button class="btn widget uib_w_19427 HeaderButtonsBorderColor HeaderButtonsBackground btn-default WhiteFont" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="el el-cog" data-position="icon only"></i>
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="upage-content ac0 content-area vertical-col left" id="page_Pendientes">
-                    <div class="text-container">
-                        <i class="fa fa-calendar fa-2x" data-position="icon only"></i>
-                        <label>
+                    <div class="text-container DarkBlueFont">
+                        <i class="fa fa-calendar fa-2x" data-position="icon only"></i>&nbsp;
+                        <label class="">
                             <h2>Pendientes</h2>
                         </label>
                     </div>
 
                     <div class="sbs-container widget uib_w_19437 d-margins" data-uib="layout/side_by_side" data-ver="0">
                         <div class="leftContent widget-container">
-                            <label class="radio radio-padding-left widget uib_w_19438 d-margins" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                            <label style="color: darkgrey;" class="radio radio-padding-left widget uib_w_19438 d-margins" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
                                 <input type="radio" name="ordenDenue" value="etapa" checked="checked">Etapa</label>
                         </div>
                         <div class="rightContent widget-container">
-                            <label class="radio radio-padding-left widget uib_w_19439 d-margins" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                            <label style="color: darkgrey;" class="radio radio-padding-left widget uib_w_19439 d-margins" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
                                 <input type="radio" name="ordenDenue" value="fecha">Fecha</label>
                         </div>
                     </div>
-                    <div class="panel-group no_wrap widget uib_w_19440 d-margins" data-uib="twitter%20bootstrap/accordion" data-ver="1" id="bs-accordion-1">
-                        <div class="panel widget uib_w_19441 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-4" data-parent="#bs-accordion-1">Recompra</a>                                    
-                                </h4>
+                    <center>
+                        <div style="width: 95%; height: 200px; overflow-y: scroll; border-style: solid; border-width: 1px; border-color: lightgrey">
+                            <div class="panel-group no_wrap widget uib_w_19440 d-margins" data-uib="twitter%20bootstrap/accordion" data-ver="1" id="bs-accordion-1">
+                                <div class="panel widget uib_w_19441 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                                    <div class="panel-heading  HeaderBackgroundDarkBlue" align="left">
+                                        <h4 class="panel-title WhiteFont">
+                                            <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-4" data-parent="#bs-accordion-1">Recompra</a>                                    
+                                        </h4>
+                                    </div>
+                                    <div id="bs-accordion-group-4" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="col uib_col_8 single-col" data-uib="layout/col" data-ver="0">
+                                                <div class="widget-container content-area vertical-col">
+                                                    <div style="border-bottom: 1px solid lightgrey; color: darkgrey;" align="left">
+                                                        <label>Acuario</label>(Enviar correo)
+                                                        <span style="float:right;">
+                                                            <a style="color: #97BF0D;" onclick="console.log('ColapseLink1');"><i class="fa fa-check" data-position="icon only"></i></a>
+                                                            <a style="color: red;" onclick="console.log('ColapseLink2');"><i class="fa fa-times" data-position="icon only"></i></a>
+                                                            <a onclick="console.log('ColapseLink3');"><i class="fa fa-ellipsis-h" data-position="icon only"></i></a>
+                                                        </span>
+                                                    </div>
 
-                            </div>
-                            <div id="bs-accordion-group-4" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="col uib_col_8 single-col" data-uib="layout/col" data-ver="0">
-                                        <div class="widget-container content-area vertical-col">
-                                            <div style="border-bottom: 1px solid lightgrey;">
-                                                <label>Acuario</label>(Enviar correo)
-                                                <span style="float:right;">
-                                                    <a onclick="console.log('ColapseLink1');"><i class="fa fa-check" data-position="icon only"></i></a>
-                                                    <a onclick="console.log('ColapseLink2');"><i class="fa fa-times" data-position="icon only"></i></a>
-                                                    <a onclick="console.log('ColapseLink3');"><i class="fa fa-ellipsis-h" data-position="icon only"></i></a>
-                                                </span>
+                                                </div>
                                             </div>
-
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel widget uib_w_19442 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                                    <div class="panel-heading HeaderBackgroundDarkBlue" align="left">
+                                        <h4 class="panel-title WhiteFont">
+                                            <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-5" data-parent="#bs-accordion-1">Seguimiento</a>
+                                        </h4>
+                                    </div>
+                                    <div id="bs-accordion-group-5" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="col uib_col_9 single-col" data-uib="layout/col" data-ver="0">
+                                                <div class="widget-container content-area vertical-col">
+                                                    <span class="uib_shim"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel widget panel-default uib_w_19443" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                                    <div class="panel-heading HeaderBackgroundDarkBlue" align="left">
+                                        <h4 class="panel-title WhiteFont">
+                                            <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-6" data-parent="#bs-accordion-1">Cierre</a>
+                                        </h4>
+                                    </div>
+                                    <div id="bs-accordion-group-6" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="col uib_col_10 single-col" data-uib="layout/col" data-ver="0">
+                                                <div class="widget-container content-area vertical-col">
+                                                    <span class="uib_shim"></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="panel widget panel-default uib_w_19442" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-5" data-parent="#bs-accordion-1">Seguimiento</a>
-                                </h4>
-                            </div>
-                            <div id="bs-accordion-group-5" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="col uib_col_9 single-col" data-uib="layout/col" data-ver="0">
-                                        <div class="widget-container content-area vertical-col">
-                                            <span class="uib_shim"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel widget panel-default uib_w_19443" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-6" data-parent="#bs-accordion-1">Cierre</a>
-                                </h4>
-                            </div>
-                            <div id="bs-accordion-group-6" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="col uib_col_10 single-col" data-uib="layout/col" data-ver="0">
-                                        <div class="widget-container content-area vertical-col">
-                                            <span class="uib_shim"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-container">
+                    </center>
+                    <div class="text-container BlueFont">
                         <i class="glyphicon glyphicon-briefcase fa-2x" data-position="icon only"></i>
                         <label>
                             <h2>Prospectos</h2>
                         </label>
                     </div>
- <div style="width: 200px; height: 100px; overflow-y: scroll;">
-    test<br />
-    test<br />
-    test<br />
-    test<br />
-    test<br />
-    test<br />
-    test<br />
-    test<br />
-    test<br />
-    test<br />
-    </div>
-                    <div class="panel-group no_wrap widget uib_w_19444 d-margins" data-uib="twitter%20bootstrap/accordion" data-ver="1" id="bs-accordion-2">
-                        <div class="panel widget panel-default uib_w_19445" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
-                            <div class="panel-heading">
+                    <center>
+                        <div style="width: 95%; height: 200px; overflow-y: scroll; border-style: solid; border-width: 1px; border-color: lightgrey;">
+                            <div class="panel-heading" style="border-bottom: 1px solid lightgrey;" align="left">
                                 <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-7" data-parent="#bs-accordion-2">Collapsible</a>
-                                    <span style="float:right;">
-                                        <a onclick="console.log('ColapseLink');"><i class="el el-cog" data-position="icon only"></i></a>
+                                    <a>Mi tiendita 1</a>
+                                    <span style="float:right;">                                        
                                         <a onclick="console.log('ColapseLink3');"><i class="fa fa-ellipsis-h" data-position="icon only"></i></a>
                                     </span>
                                 </h4>
                             </div>
-                            <div id="bs-accordion-group-7" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="col uib_col_11 single-col" data-uib="layout/col" data-ver="0">
-                                        <div class="widget-container content-area vertical-col">
-                                            <span class="uib_shim"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel widget uib_w_19446 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
-                            <div class="panel-heading">
+                            <div class="panel-heading" style="border-bottom: 1px solid lightgrey;" align="left">
                                 <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-8" data-parent="#bs-accordion-2">Collapsible</a>
+                                    <a>Mi tiendita 2</a>
+                                    <span style="float:right;">                                        
+                                        <a onclick="console.log('ColapseLink3');"><i class="fa fa-ellipsis-h" data-position="icon only"></i></a>
+                                    </span>
                                 </h4>
                             </div>
-                            <div id="bs-accordion-group-8" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="col uib_col_12 single-col" data-uib="layout/col" data-ver="0">
-                                        <div class="widget-container content-area vertical-col">
-                                            <span class="uib_shim"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel widget panel-default uib_w_19447" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
-                            <div class="panel-heading">
+                            <div class="panel-heading" style="border-bottom: 1px solid lightgrey;" align="left">
                                 <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-9" data-parent="#bs-accordion-2">Collapsible</a>
+                                    <a>Mi tiendita 3</a>
+                                    <span style="float:right;">                                        
+                                        <a onclick="console.log('ColapseLink3');"><i class="fa fa-ellipsis-h" data-position="icon only"></i></a>
+                                    </span>
                                 </h4>
                             </div>
-                            <div id="bs-accordion-group-9" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="col uib_col_13 single-col" data-uib="layout/col" data-ver="0">
-                                        <div class="widget-container content-area vertical-col">
-                                            <span class="uib_shim"></span>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="panel-heading" style="border-bottom: 1px solid lightgrey;" align="left">
+                                <h4 class="panel-title">
+                                    <a>Mi tiendita 4</a>
+                                    <span style="float:right;">                                        
+                                        <a onclick="console.log('ColapseLink3');"><i class="fa fa-ellipsis-h" data-position="icon only"></i></a>
+                                    </span>
+                                </h4>
                             </div>
+                            <div class="panel-heading" style="border-bottom: 1px solid lightgrey;" align="left">
+                                <h4 class="panel-title">
+                                    <a>Mi tiendita 5</a>
+                                    <span style="float:right;">                                        
+                                        <a onclick="console.log('ColapseLink3');"><i class="fa fa-ellipsis-h" data-position="icon only"></i></a>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="panel-heading" style="border-bottom: 1px solid lightgrey;" align="left">
+                                <h4 class="panel-title">
+                                    <a>Mi tiendita 6</a>
+                                    <span style="float:right;">                                        
+                                        <a onclick="console.log('ColapseLink3');"><i class="fa fa-ellipsis-h" data-position="icon only"></i></a>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="panel-heading" style="border-bottom: 1px solid lightgrey;" align="left">
+                                <h4 class="panel-title">
+                                    <a>Mi tiendita 7</a>
+                                    <span style="float:right;">                                        
+                                        <a onclick="console.log('ColapseLink3');"><i class="fa fa-ellipsis-h" data-position="icon only"></i></a>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="panel-heading" style="border-bottom: 1px solid lightgrey;" align="left">
+                                <h4 class="panel-title">
+                                    <a>Mi tiendita 8</a>
+                                    <span style="float:right;">                                        
+                                        <a onclick="console.log('ColapseLink3');"><i class="fa fa-ellipsis-h" data-position="icon only"></i></a>
+                                    </span>
+                                </h4>
+                            </div>
+
                         </div>
-                    </div>
+                    </center>
+                    <div style="height:50px; width:100%; clear:both;"></div>
                 </div>
                 <div id="uib_page_Filtros" class="upage-content vertical-col left hidden">
                     <h2><i class="fa fa-sliders" data-position="icon only"></i>Filtros</h2> 
                     <div class="panel-group no_wrap widget uib_w_19453 d-margins" data-uib="twitter%20bootstrap/accordion" data-ver="1" id="bs-accordion-3">
                         <div class="panel widget uib_w_19454 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-           <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-3" data-parent="#bs-accordion-3">Estado</a>
-       </h4>
+                            <div class="panel-heading HeaderBackgroundRed">
+                                <h4 class="panel-title WhiteFont">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-3" data-parent="#bs-accordion-3">Estado</a>
+                                </h4>
                             </div>
                             <div id="bs-accordion-group-3" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div class="col uib_col_17 single-col" data-uib="layout/col" data-ver="0">
-                                        <div class="widget-container content-area vertical-col">
+                                        <div class="widget-container content-area vertical-col" style="select[multiple]:focus option:checked  { color: white;  background: red; }">
+                                            <select name="states" multiple="">
+                                                <option value="volvo">Estado 1</option>
+                                                <option value="saab">Estado 2</option>
+                                                <option value="opel">Estado 3</option>
+                                                <option value="audi">Estado 4</option>
+                                            </select>
                                             <span class="uib_shim"></span>
                                         </div>
                                     </div>
@@ -434,15 +450,21 @@
                             </div>
                         </div>
                         <div class="panel widget uib_w_19455 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-           <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-10" data-parent="#bs-accordion-3">Municipio</a>
-       </h4>
+                            <div class="panel-heading  HeaderBackgroundRed">
+                                <h4 class="panel-title  WhiteFont">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-10" data-parent="#bs-accordion-3">Municipio</a>
+                                </h4>
                             </div>
                             <div id="bs-accordion-group-10" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div class="col uib_col_18 single-col" data-uib="layout/col" data-ver="0">
                                         <div class="widget-container content-area vertical-col">
+                                            <select name="states" multiple="">
+                                                <option value="volvo">Municipio 1</option>
+                                                <option value="saab">Municipio 2</option>
+                                                <option value="opel">Municipio 3</option>
+                                                <option value="audi">Municipio 4</option>
+                                            </select>
                                             <span class="uib_shim"></span>
                                         </div>
                                     </div>
@@ -450,15 +472,21 @@
                             </div>
                         </div>
                         <div class="panel widget uib_w_19456 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-           <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-11" data-parent="#bs-accordion-3">Actividad economica</a>
-       </h4>
+                            <div class="panel-heading  HeaderBackgroundRed">
+                                <h4 class="panel-title  WhiteFont">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-11" data-parent="#bs-accordion-3">Actividad economica</a>
+                                </h4>
                             </div>
                             <div id="bs-accordion-group-11" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div class="col uib_col_19 single-col" data-uib="layout/col" data-ver="0">
                                         <div class="widget-container content-area vertical-col">
+                                            <select name="states" multiple="">
+                                                <option value="volvo">Actividad 1</option>
+                                                <option value="saab">Actividad 2</option>
+                                                <option value="opel">Actividad 3</option>
+                                                <option value="audi">Actividad 4</option>
+                                            </select>
                                             <span class="uib_shim"></span>
                                         </div>
                                     </div>
@@ -466,15 +494,21 @@
                             </div>
                         </div>
                         <div class="panel widget uib_w_19458 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-           <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-12" data-parent="#bs-accordion-3">Tamano de la empresa</a>
-       </h4>
+                            <div class="panel-heading HeaderBackgroundRed">
+                                <h4 class="panel-title WhiteFont">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-12" data-parent="#bs-accordion-3">Tamano de la empresa</a>
+                                </h4>
                             </div>
                             <div id="bs-accordion-group-12" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div class="col uib_col_20 single-col" data-uib="layout/col" data-ver="0">
                                         <div class="widget-container content-area vertical-col">
+                                            <select name="states" multiple="">
+                                                <option value="volvo">Tamano 1</option>
+                                                <option value="saab">Tamano 2</option>
+                                                <option value="opel">Tamano 3</option>
+                                                <option value="audi">Tamano 4</option>
+                                            </select>
                                             <span class="uib_shim"></span>
                                         </div>
                                     </div>
@@ -482,15 +516,23 @@
                             </div>
                         </div>
                         <div class="panel widget uib_w_19459 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-           <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-13" data-parent="#bs-accordion-3">Proximidad</a>
-       </h4>
+                            <div class="panel-heading  HeaderBackgroundRed">
+                                <h4 class="panel-title  WhiteFont">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-13" data-parent="#bs-accordion-3">Proximidad</a>
+                                </h4>
                             </div>
                             <div id="bs-accordion-group-13" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <div class="col uib_col_21 single-col" data-uib="layout/col" data-ver="0">
                                         <div class="widget-container content-area vertical-col">
+                                            <fieldset class="widget uib_w_19460 d-margins" data-uib="twitter%20bootstrap/radio_group" data-ver="1" data-child-name="bs-radio-group-0">
+                                                <label class="radio radio-padding-left widget uib_w_19461" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                                    <input type="radio" name="bs-radio-group-0">Desde localizacion de la Empresa</label>
+                                                <label class="radio radio-padding-left widget uib_w_19462" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                                    <input type="radio" name="bs-radio-group-0">Desde Localizacion actual</label>
+                                                <label class="radio radio-padding-left widget uib_w_19463" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                                    <input type="radio" name="bs-radio-group-0">Desde Nueva localizacion</label>
+                                            </fieldset>
                                             <span class="uib_shim"></span>
                                         </div>
                                     </div>
@@ -498,23 +540,25 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn widget uib_w_19457 d-margins SendButtonBackgroundRed PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_FiltrosBuscar">Buscar</button>
+                    <center>
+                        <button class="btn widget uib_w_19457 SendButtonBackgroundRed WhiteFont StartPageButtonsWidth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_FiltrosBuscar">Buscar</button>
+                    </center>
                 </div>
-                <div class="uib-footer uib-footer-fixed container-group inner-element uib_w_19429 FooterBackgroundRed" data-uib="layout/footer" data-ver="0">
+                <div class="uib-footer uib-footer-fixed container-group inner-element uib_w_19429 FooterBackgroundRed" data-uib="layout/footer" data-ver="0" id="MainFooter">
                     <div class="widget-container wrapping-col single-centered">
-                        <button class="btn widget uib_w_19433 HeaderButtonsBackground HeaderButtonsBorderColor PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_FooterPendientes"><i class="fa fa-calendar" data-position="icon only"></i>
+                        <button class="btn widget uib_w_19433 HeaderButtonsBackground HeaderButtonsBorderColor btn-default WhiteFont" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_FooterPendientes"><i class="fa fa-calendar" data-position="icon only"></i>
                         </button>
-                        <button class="btn widget uib_w_19431 HeaderButtonsBackground HeaderButtonsBorderColor PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_FooterProspectos"><i class="glyphicon glyphicon-briefcase" data-position="icon only"></i>
+                        <button class="btn widget uib_w_19431 HeaderButtonsBackground HeaderButtonsBorderColor btn-default WhiteFont" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_FooterProspectos"><i class="glyphicon glyphicon-briefcase" data-position="icon only"></i>
                         </button>
-                        <button class="btn widget uib_w_19430 HeaderButtonsBackground HeaderButtonsBorderColor PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="fa fa-comment-o" data-position="icon only"></i>
+                        <button class="btn widget uib_w_19430 HeaderButtonsBackground HeaderButtonsBorderColor btn-default WhiteFont" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="fa fa-comment-o" data-position="icon only"></i>
                         </button>
-                        <button class="btn widget uib_w_19432 HeaderButtonsBackground HeaderButtonsBorderColor PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="glyphicon glyphicon-tag" data-position="icon only"></i>
+                        <button class="btn widget uib_w_19432 HeaderButtonsBackground HeaderButtonsBorderColor btn-default WhiteFont" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="glyphicon glyphicon-tag" data-position="icon only"></i>
                         </button>
-                        <button class="btn widget uib_w_19434 HeaderButtonsBackground HeaderButtonsBorderColor PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="fa fa-history" data-position="icon only"></i>
+                        <button class="btn widget uib_w_19434 HeaderButtonsBackground HeaderButtonsBorderColor btn-default WhiteFont" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="fa fa-history" data-position="icon only"></i>
                         </button>
-                        <button class="btn widget uib_w_19435 HeaderButtonsBackground HeaderButtonsBorderColor PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="glyphicon glyphicon-filter" data-position="icon only"></i>
+                        <button class="btn widget uib_w_19435 HeaderButtonsBackground HeaderButtonsBorderColor btn-default WhiteFont" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="glyphicon glyphicon-filter" data-position="icon only"></i>
                         </button>
-                        <button class="btn widget uib_w_19436 HeaderButtonsBackground HeaderButtonsBorderColor PageStartFontColorLigth btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="fa fa-file-text-o" data-position="icon only"></i>
+                        <button class="btn widget uib_w_19436 HeaderButtonsBackground HeaderButtonsBorderColor btn-default WhiteFont" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="fa fa-file-text-o" data-position="icon only"></i>
                         </button>
                     </div>
                     <div class="widget-container content-area horiz-area wrapping-col left"></div>
@@ -522,7 +566,7 @@
                 </div>
 
                 <div id="uib_page_DenueResults" class="upage-content vertical-col left hidden">
-                    <h2><i class="fa fa-sliders" data-position="icon only"></i>Filtros</h2>
+                    <h2 class="RedFont"><i class="fa fa-sliders" data-position="icon only"></i>&nbsp;Filtros</h2>
                     <br>Ordenar
                     <div class="sbs-container widget uib_w_19437 d-margins" data-uib="layout/side_by_side" data-ver="0">
                         <div class="leftContent widget-container">
@@ -535,57 +579,150 @@
                         </div>
                     </div>
                     <strong>0,000 Resultados</strong>
-                    <div class="panel-group no_wrap widget uib_w_19449 d-margins" data-uib="twitter%20bootstrap/accordion" data-ver="1" id="bs-accordion-0">
-                        <div class="panel widget panel-default uib_w_19450" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-0" data-parent="#bs-accordion-0">Collapsible</a>
-                                </h4>
-                            </div>
-                            <div id="bs-accordion-group-0" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="col uib_col_14 single-col" data-uib="layout/col" data-ver="0">
-                                        <div class="widget-container content-area vertical-col">
-                                            <span class="uib_shim"></span>
+                    <center>
+                        <div style="width: 95%; height: 350px; overflow-y: scroll; border-style: solid; border-width: 1px;">
+                            <div class="panel-group no_wrap widget uib_w_19440 d-margins" data-uib="twitter%20bootstrap/accordion" data-ver="1" id="bs-accordion-1">
+                                <div class="panel widget uib_w_19469 panel-default" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
+                                    <div class="panel-heading" align="left">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-14" data-parent="#bs-accordion-1">Mi tiendita1</a>
+                                            <span style="float:right;">
+                                                <a style="color: blue;" onclick="console.log('ColapseLink1');"><i class="fa fa-plus" data-position="icon only"></i></a>
+                                                <a style="color: #00909A;" onclick="console.log('ColapseLink2');"><i class="fa fa-briefcase" data-position="icon only"></i></a>
+                                                <a style="color: red;" onclick="console.log('ColapseLink3');"><i class="fa fa-trash" data-position="icon only"></i></a>
+                                            </span>
+                                        </h4>
+                                    </div>
+                                    <div id="bs-accordion-group-14" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="col uib_col_22 single-col" data-uib="layout/col" data-ver="0">
+                                                <div class="widget-container content-area vertical-col" align="left">
+                                                    Direccion
+                                                    <br>
+                                                    <label>Tel:</label>00000000
+                                                    <br>
+                                                    <label>Tamano de la empresa:</label>15-25 empleados
+                                                    <br>
+                                                    <a>Ver en el mapa</a>
+                                                    <div class="btn-group uib-bs-flex widget uib_w_19465 d-margins" data-uib="twitter%20bootstrap/button_group" data-ver="1">
+                                                        <button class="btn widget uib_w_19466 btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="fa fa-google button-icon-left" data-position="left"></i>Buscar en google</button>
+                                                        <button style="background-color: #97BF0D; color: white;" class="btn widget uib_w_19467 btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="fa fa-phone" data-position="icon only"></i>
+                                                        </button>
+                                                        <button style="background-color: #37A8DB; color: white;" class="btn widget uib_w_19468 btn-default" data-uib="twitter%20bootstrap/button" data-ver="1"><i class="fa fa-envelope" data-position="icon only"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
-                        <div class="panel widget panel-default uib_w_19451" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-1" data-parent="#bs-accordion-0">Collapsible</a>
-                                </h4>
-                            </div>
-                            <div id="bs-accordion-group-1" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="col uib_col_15 single-col" data-uib="layout/col" data-ver="0">
-                                        <div class="widget-container content-area vertical-col">
-                                            <span class="uib_shim"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <button class="btn widget uib_w_19464 d-margins SendButtonBackgroundRed WhiteFont btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn_DenueResultsNewSearch">Nueva busqueda</button>
+                    </center>
+                    <div style="height:50px; width:100%; clear:both;"></div>
+
+                </div>
+                <div id="uib_page_Prospectos" class="upage-content vertical-col left hidden">
+                    <div class="text-container" style="color: #00909A">
+                        <i class="glyphicon glyphicon-briefcase fa-2x" data-position="icon only"></i>
+                        <label>
+                            <h2>Prospectos</h2>
+                        </label>
+                    </div>
+                    Ordenar
+                    <br>
+                    <div class="sbs-container widget uib_w_19437 d-margins" data-uib="layout/side_by_side" data-ver="0">
+                        <div class="leftContent widget-container">
+                            <label style="color: darkgrey;" class="radio radio-padding-left widget uib_w_19438 d-margins" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                <input type="radio" name="ordenDenue" value="etapa" checked="checked">Alfabeticamente
+                            </label>
+                        </div>&nbsp;
+                        <div class="rightContent widget-container">
+                            <label style="color: darkgrey;" class="radio radio-padding-left widget uib_w_19439 d-margins" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                <input type="radio" name="ordenDenue" value="fecha">Distancia</label>
                         </div>
-                        <div class="panel widget panel-default uib_w_19452" data-uib="twitter%20bootstrap/collapsible" data-ver="1">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" href="#bs-accordion-group-2" data-parent="#bs-accordion-0">Collapsible</a>
-                                </h4>
-                            </div>
-                            <div id="bs-accordion-group-2" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <div class="col uib_col_16 single-col" data-uib="layout/col" data-ver="0">
-                                        <div class="widget-container content-area vertical-col">
-                                            <span class="uib_shim"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="rightContent widget-container">
+                            <label style="color: darkgrey;" class="radio radio-padding-left widget uib_w_19439 d-margins" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                <input type="radio" name="ordenDenue" value="fecha">Nuevos</label>
                         </div>
                     </div>
-
+                    <div class="sbs-container widget uib_w_19439 d-margins" data-uib="layout/side_by_side" data-ver="0">
+                        <div class="rightContent widget-container">
+                            <label style="color: darkgrey;" class="radio radio-padding-left widget uib_w_19439 d-margins" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                <input type="radio" name="ordenDenue" value="fecha">Estatus</label>
+                        </div>
+                        <div class="rightContent widget-container">
+                            <label style="color: darkgrey;" class="radio radio-padding-left widget uib_w_19439 d-margins" data-uib="twitter%20bootstrap/radio_button" data-ver="1">
+                                <input type="radio" name="ordenDenue" value="fecha">Valoracion</label>
+                        </div>
+                    </div>
+                    <center>
+                        <div style="width: 95%; height: 450px; overflow-y: scroll; border-style: solid; border-width: 1px;">
+                            <div class="panel-heading HeaderBackgroundLightBlue WhiteFont" style="border-bottom: 1px solid lightgrey;" align="left">
+                                <h4 class="panel-title">
+                                    <a>Mi tiendita 1</a>
+                                    <span style="float:right;">                                        
+                                        <a class="WhiteFont" onclick="console.log('ColapseLink3');"><i class="fa fa-frown-o" data-position="icon only"></i></a>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="panel-heading HeaderBackgroundLightBlue WhiteFont" style="border-bottom: 1px solid lightgrey;" align="left">
+                                <h4 class="panel-title">
+                                    <a>Mi tiendita 1</a>
+                                    <span style="float:right;">                                        
+                                        <a class="WhiteFont" onclick="console.log('ColapseLink3');"><i class="fa fa-frown-o" data-position="icon only"></i></a>&nbsp;1 Km
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="panel-heading HeaderBackgroundLightBlue WhiteFont" style="border-bottom: 1px solid lightgrey;" align="left">
+                                <h4 class="panel-title">
+                                    <a>Mi tiendita 1</a>
+                                    <span style="float:right;">                                        
+                                        <a class="WhiteFont" onclick="console.log('ColapseLink3');"><i class="fa fa-frown-o" data-position="icon only"></i></a>&nbsp;1 dia
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="panel-heading HeaderBackgroundLightBlue WhiteFont" style="border-bottom: 1px solid lightgrey;" align="left">
+                                <h4 class="panel-title">
+                                    <a>Mi tiendita 1</a>
+                                    <span style="float:right;">                                        
+                                        <a style="color: yellow;" onclick="console.log('ColapseLink3');"><i class="fa fa-star" data-position="icon only"></i></a>&nbsp;5/3
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="panel-heading HeaderBackgroundLightBlue WhiteFont" style="border-bottom: 1px solid lightgrey;" align="left">
+                                <h4 class="panel-title">
+                                    <a><i class="fa fa-frown-o" data-position="icon only"></i>Recompra</a>
+                                    <span style="float:right; color: black;">                                        
+                                        5 prospectos
+                                    </span>
+                                </h4>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+                <div id="uib_page_ProfileProspecto" class="upage-content vertical-col left hidden">
+                    <div class="text-container" style="color: #00909A">
+                        <i class="glyphicon glyphicon-briefcase fa-2x" data-position="icon only"></i>
+                        <label>
+                            <h2>Prospectos</h2>
+                        </label>
+                    </div>
+                    <div class="btn-group uib-bs-flex widget uib_w_19470 d-margins" data-uib="twitter%20bootstrap/button_group" data-ver="1">
+                        <button class="btn widget btn-default uib_w_19471" data-uib="twitter%20bootstrap/button" data-ver="1">Button</button>
+                        <button class="btn widget btn-default uib_w_19472" data-uib="twitter%20bootstrap/button" data-ver="1">Button</button>
+                        <button class="btn widget btn-default uib_w_19473" data-uib="twitter%20bootstrap/button" data-ver="1">Button</button>
+                    </div>
+                    <div class="table-thing widget uib_w_19474 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                        <label class="narrow-control label-inline">Name</label>
+                        <input class="wide-control form-control default" type="text" placeholder="Placeholder">
+                    </div>
+                    <div class="table-thing widget uib_w_19475 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                        <label class="narrow-control label-inline">Name</label>
+                        <input class="wide-control form-control default" type="text" placeholder="Placeholder">
+                    </div>
                 </div>
             </div>
         </div>
@@ -600,6 +737,36 @@
                 <i class="fa fa-sliders fa-5x" data-position="icon only"></i>
             </center>
         </div>
+        <div class="upage vertical-col left hidden BackgroundBlue" id="uib_page_ProspectosSplash">
+            <div class="widget uib_w_19448 scale-image StartPageLogoMargins" data-uib="media/img" data-ver="0">
+                <figure class="figure-align">
+                    <img src="images/logoNegro.png">
+
+                    <figcaption data-position="bottom"></figcaption>
+                </figure>
+            </div>
+            <center>
+                <i class="fa fa-briefcase fa-5x" data-position="icon only"></i>
+            </center>
+        </div>
+        <div class="modal outer-element uib_w_19476" data-uib="twitter%20bootstrap/modal" data-ver="1" data-backdrop="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Sincronizando</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="col uib_col_23 single-col" data-uib="layout/col" data-ver="0">
+                                <div class="widget-container content-area vertical-col">
+                                    <span class="uib_shim"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
     </body>
 
 </html>
