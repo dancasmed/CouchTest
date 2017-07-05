@@ -132,6 +132,52 @@ Hole01Db =
 					console.log('Not indexable property ' + item + ' (' + typeof obj[item] + ')');
 			}
 		);
-	}
+	},
+	GetStateCode : function(country, state, tmp = null, callback = function(stateCode, tmp = null) { console.log(tmp.Title + ' ' + JSON.stringify(stateCode));})
+    {
+        eval("var f = function(doc){ if (doc.ObjectType === 'Hole.Services.Places.Models.State'){ if(doc.Name === '" + state + "') if(doc.CountryName === '" + country + "') emit(doc.Code); }}");
+
+        Hole01Db.ProjectDb.query(
+            f,
+            {  
+                include_docs : false,
+                descending: false,
+                limit: 1,
+                skip: 0
+            }
+        ).then(
+                function (result)
+                {
+                    var res = null;
+                    if(result.rows.length > 0)
+                    	res = result.rows[0].key;                 
+                    
+                    callback(res, tmp);                    
+                }
+        );        
+    },
+    GetMunicipalityCode : function(country, state, municipality, tmp = null, callback = function(municipalityCode, tmp = null) { console.log(JSON.stringify(municipalityCode));})
+    {
+        eval("var f = function(doc){if (doc.ObjectType === 'Hole.Services.Places.Models.Municipality'){if(doc.Name === '" + municipality + "') if(doc.StateName === '" + state + "') if(doc.CountryName === '" + country + "') emit(doc.Code);}};");
+        console.log(country+'-'+state+'-'+municipality);
+        Hole01Db.ProjectDb.query(
+            f,
+            {  
+                include_docs : false,
+                descending: false,
+                limit: 1,
+                skip: 0
+            }
+        ).then(
+                function (result)
+                {
+                    var res = null;
+                    if( result.rows.length > 0)
+                        res = result.rows[0].key;
+                    
+                    callback(res, tmp);
+                }
+        );
+    },
 
 };
